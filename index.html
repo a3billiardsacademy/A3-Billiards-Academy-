@@ -5,10 +5,289 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A3 Billiards Academy Booking</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- (Full code continues here with the WhatsApp share button included) -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #000000, #b8860b);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px;
+      border-bottom: 2px solid gold;
+    }
+
+    header img {
+      width: 100px;
+      border-radius: 50%;
+      border: 2px solid gold;
+    }
+
+    h1 {
+      color: gold;
+      margin-top: 10px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    h2.address {
+      font-size: 15px;
+      color: white;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+
+    .booking-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+      animation: slideUp 1s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h2, h3, label {
+      font-weight: 700;
+    }
+
+    select, input, button {
+      width: 90%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button {
+      background: gold;
+      color: black;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: white;
+      color: black;
+    }
+
+    .price-info, .total-amount {
+      font-weight: 700;
+      font-size: 20px;
+      color: gold;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: rgba(0,0,0,0.8);
+      padding: 15px;
+      border-top: 2px solid gold;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: gold;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .admin-login {
+      margin-top: 40px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .whatsapp-button {
+      background: #25D366;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .whatsapp-button:hover {
+      background: #1DA851;
+    }
+  </style>
 </head>
 <body>
-  <h1>A3 Billiards Academy Booking</h1>
-  <p>This is your final exported version.</p>
+  <header>
+    <img src="https://lh3.googleusercontent.com/a-/ALV-UjWHa6CNCODKDxiJdY4ZjUHZRzEMn8DieuE84b5_A4BRf-f23JY=s265-w265-h265" alt="A3 Billiards Logo">
+    <h1>A3 Billiards Academy</h1>
+    <h2 class="address">Address: 104/1, 4th main, Devarachikkanahalli Main Rd, Kaveri Nagar, Hongasandra, Bengaluru, Karnataka 560114</h2>
+  </header>
+
+  <section class="booking-section" id="bookingSection">
+    <h2>Book Your Table</h2>
+    <label for="tableSelect">Select Table:</label>
+    <select id="tableSelect">
+      <option value="">-- Select Table --</option>
+      <option value="Table 1">Table 1</option>
+      <option value="Table 2">Table 2</option>
+      <option value="Table 3">Table 3</option>
+      <option value="Table 4">Table 4</option>
+      <option value="Table 5">Table 5</option>
+      <option value="Table 6">Table 6</option>
+      <option value="Table 7">Table 7</option>
+      <option value="Table 8">Table 8</option>
+    </select>
+
+    <div class="price-info">Price per hour: ₹320</div>
+
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <input type="datetime-local" id="dateInput">
+    <input type="number" id="hoursInput" placeholder="Hours" oninput="updateTotal()">
+
+    <label for="discountSelect">Discount:</label>
+    <select id="discountSelect" onchange="updateTotal()">
+      <option value="0">0%</option>
+      <option value="1">1%</option>
+      <option value="2">2%</option>
+      <option value="3">3%</option>
+      <option value="4">4%</option>
+      <option value="5">5%</option>
+    </select>
+
+    <div class="total-amount" id="totalAmount">Total Payable: ₹0</div>
+
+    <h3>Scan to Pay</h3>
+    <img src="https://i.ibb.co/Xf6cBpnS/Qr-Code.jpg" alt="Payment QR" width="200">
+
+    <div>
+      <p><strong>After payment, please upload your payment screenshot to confirm booking.</strong></p>
+      <input type="file" id="screenshotUpload" accept="image/*">
+      <button onclick="confirmBooking()">Confirm Booking</button>
+      <button class="whatsapp-button" onclick="shareToWhatsApp()">Share Screenshot on WhatsApp</button>
+    </div>
+  </section>
+
+  <div class="admin-login">
+    <button onclick="showAdminLogin()">Admin Login</button>
+  </div>
+
+  <div id="adminPanel" class="hidden booking-section">
+    <h2>Admin Login</h2>
+    <input type="text" id="adminUser" placeholder="User ID">
+    <input type="password" id="adminPass" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+  </div>
+
+  <div id="dashboard" class="hidden booking-section">
+    <h2>Bookings Dashboard</h2>
+    <table border="1" width="100%" style="color:white; border-color:gold; font-weight:500;">
+      <thead>
+        <tr><th>Name</th><th>Table</th><th>Date/Time</th><th>Hours</th><th>Discount</th><th>Total</th><th>Payment Status</th></tr>
+      </thead>
+      <tbody id="bookingList"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p><strong>Contact:</strong> +91 7867860716 | +91 9916450716</p>
+    <p><strong>Designed by</strong> <a href="https://gravatar.com/maazalam04?utm_source=hovercard" target="_blank">Md Maaz Alam</a></p>
+  </footer>
+
+  <script>
+    function updateTotal() {
+      const hours = document.getElementById('hoursInput').value;
+      const discount = document.getElementById('discountSelect').value;
+      const basePrice = 320;
+      if (hours > 0) {
+        const total = hours * basePrice * (1 - discount / 100);
+        document.getElementById('totalAmount').textContent = `Total Payable: ₹${total.toFixed(2)}`;
+      } else {
+        document.getElementById('totalAmount').textContent = 'Total Payable: ₹0';
+      }
+    }
+
+    function confirmBooking() {
+      const table = document.getElementById('tableSelect').value;
+      const name = document.getElementById('nameInput').value;
+      const date = document.getElementById('dateInput').value;
+      const hours = document.getElementById('hoursInput').value;
+      const discount = document.getElementById('discountSelect').value;
+      const screenshot = document.getElementById('screenshotUpload').files.length;
+      const total = hours * 320 * (1 - discount / 100);
+
+      if (!screenshot) {
+        alert('Please upload your payment screenshot before confirming.');
+        return;
+      }
+
+      if (table && name && date && hours) {
+        const booking = {
+          name, table, date, hours, discount, total: total.toFixed(2), paymentStatus: 'Paid'
+        };
+        let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+        bookings.push(booking);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        alert('Booking confirmed successfully!');
+      } else {
+        alert('Please fill all booking details.');
+      }
+    }
+
+    function shareToWhatsApp() {
+      const message = encodeURIComponent('Hello! I have shared my payment screenshot for snooker table booking.');
+      window.open(`https://wa.me/917867860716?text=${message}`, '_blank');
+    }
+
+    function showAdminLogin() {
+      document.getElementById('adminPanel').classList.toggle('hidden');
+    }
+
+    function adminLogin() {
+      const user = document.getElementById('adminUser').value;
+      const pass = document.getElementById('adminPass').value;
+
+      if (user === 'maazalam04' && pass === 'Maazalam@2004') {
+        document.getElementById('adminPanel').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        loadBookings();
+      } else {
+        alert('Invalid credentials');
+      }
+    }
+
+    function loadBookings() {
+      const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+      const list = document.getElementById('bookingList');
+      list.innerHTML = '';
+      bookings.forEach((b) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${b.name}</td><td>${b.table}</td><td>${b.date}</td><td>${b.hours}</td><td>${b.discount}%</td><td>₹${b.total}</td><td>${b.paymentStatus}</td>`;
+        list.appendChild(row);
+      });
+    }
+  </script>
 </body>
 </html>
