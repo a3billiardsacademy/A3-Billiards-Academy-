@@ -12,4 +12,4 @@ To deploy on **Vercel**:
 2. Connect the repository to Vercel.
 3. Deploy directly with default settings.
 
-**Develpoer [Md Maaz Alam](https://gravatar.com/maazalam04?utm_source=hovercard)**.
+**Developer [Md Maaz Alam](https://gravatar.com/maazalam04?utm_source=hovercard)**.
